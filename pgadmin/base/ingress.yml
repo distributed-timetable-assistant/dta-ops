@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pgadmin
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - pgadmin.st.dta.hasankarimi.ir
+      secretName: pgadmin
+  rules:
+    - host: pgadmin.st.dta.hasankarimi.ir
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: pgadmin
+                port:
+                  number: 80

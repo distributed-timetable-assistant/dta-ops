@@ -1,0 +1,15 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Main Postgresql Server",
+      "Group": "Servers",
+      "Host": "postgres",
+      "Port": 5432,
+      "Username": "postgres",
+      "MaintenanceDB": "postgres",
+      "Comment": "Main Postgresql Server Of The Distributed Timetable Assistant Net",
+      "PasswordExecCommand": "echo $POSTGRES_PASSWORD",
+      "PasswordExecExpiration": 100
+    }
+  }
+}

@@ -1,0 +1,11 @@
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: pgadmin
+    files:
+      - servers.json
+    literals:
+      - PGADMIN_DEFAULT_EMAIL="hasankarimi.dev@gmail.com"
+      - PGADMIN_LISTEN_ADDRESS="0.0.0.0"
+      - PGADMIN_CONFIG_ENABLE_SERVER_PASS_EXEC_CMD="True"
