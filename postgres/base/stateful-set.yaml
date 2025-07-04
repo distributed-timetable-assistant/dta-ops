@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+spec:
+  revisionHistoryLimit: 0
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  serviceName: postgres
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Delete
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:17
+          imagePullPolicy: IfNotPresent
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "/bin/sh", "-c", "pg_ctl -D /var/lib/postgresql/data -w -t 60 -m fast stop" ]
+          envFrom:
+            - secretRef:
+                name: postgres
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: data
+          ports:
+            - name: tcp
+              containerPort: 5432
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 0m
+              memory: 0Mi
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: postgres
