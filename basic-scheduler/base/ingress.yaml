@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: basic-scheduler
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - bs.st.dta.hasankarimi.ir
+      secretName: basic-scheduler
+  rules:
+    - host: bs.st.dta.hasankarimi.ir
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: basic-scheduler
+                port:
+                  number: http

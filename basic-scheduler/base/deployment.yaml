@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: basic-scheduler
+spec:
+  revisionHistoryLimit: 0
+  replicas: 1
+  selector:
+    matchLabels:
+      app: basic-scheduler
+  template:
+    metadata:
+      labels:
+        app: basic-scheduler
+    spec:
+      containers:
+        - name: basic-scheduler
+          image: backendd/dta.basic-scheduler:latest
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: basic-scheduler
+            - secretRef:
+                name: postgres
+          ports:
+            - name: http
+              containerPort: 3000
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 0m
+              memory: 0Mi
