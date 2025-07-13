@@ -18,4 +18,4 @@ spec:
               service:
                 name: basic-scheduler
                 port:
-                  number: http
+                  name: http
